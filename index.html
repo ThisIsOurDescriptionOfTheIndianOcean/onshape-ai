@@ -1,0 +1,161 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Onshape AI Copilot</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #10141c;
+      color: #f3f5f8;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 760px;
+      height:  min(750px, 90vh);
+      background: #1a202b;
+      border: 1px solid #303b4c;
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    header {
+      padding: 20px;
+      border-bottom: 1px solid #303b4c;
+    }
+
+    header h1 { margin: 0 0 6px; font-size: 22px; }
+    header p { margin: 0; color: #aab5c5; font-size: 14px; }
+
+    #messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .message {
+      max-width: 85%;
+      padding: 13px 15px;
+      border-radius: 12px;
+      line-height: 1.5;
+      white-space: pre-wrap;
+    }
+
+    .assistant {
+      background: #293446;
+      align-self: flex-start;
+    }
+
+    .user {
+      background: #245caa;
+      align-self: flex-end;
+    }
+
+    .input-area {
+      padding: 16px;
+      border-top: 1px solid #303b4c;
+      display: flex;
+      gap: 10px;
+    }
+
+    input {
+      flex: 1;
+      min-width: 0;
+      padding: 13px;
+      border-radius: 9px;
+      border: 1px solid #46546a;
+      background: #111722;
+      color: white;
+      font-size: 15px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 9px;
+      padding: 0 20px;
+      background: #3983e6;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover { background: #5598f2; }
+
+    #status {
+      padding: 0 16px 13px;
+      color: #f1c56b;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header>
+      <h1>🤖 Onshape AI Copilot</h1>
+      <p>Your AI assistant for FTC and FRC robotics CAD.</p>
+    </header>
+
+    <section id="messages">
+      <div class="message assistant">Hello! I'm your Onshape AI Copilot.
+
+I can help you plan parts, design mechanisms, build assemblies, and find robotics components.
+
+What are we designing today?</div>
+    </section>
+
+    <div class="input-area">
+      <input id="prompt" placeholder="Ask your CAD assistant..." />
+      <button id="send">Send</button>
+    </div>
+
+    <div id="status">● Interface online — AI and Onshape connections coming next.</div>
+  </main>
+
+  <script>
+    const input = document.getElementById("prompt");
+    const messages = document.getElementById("messages");
+    const send = document.getElementById("send");
+
+    function sendMessage() {
+      const text = input.value.trim();
+      if (!text) return;
+
+      const message = document.createElement("div");
+      message.className = "message user";
+      message.textContent = text;
+      messages.appendChild(message);
+
+      const reply = document.createElement("div");
+      reply.className = "message assistant";
+      reply.textContent =
+        "I received your request! My AI connection is not installed yet. That is our next development step.";
+      messages.appendChild(reply);
+
+      input.value = "";
+      messages.scrollTop = messages.scrollHeight;
+    }
+
+    send.addEventListener("click", sendMessage);
+
+    input.addEventListener("keydown", function(event) {
+      if (event.key === "Enter") sendMessage();
+    });
+  </script>
+</body>
+</html>
